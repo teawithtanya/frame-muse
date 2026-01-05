@@ -453,19 +453,32 @@ ul {
 .lightbox-caption {
     color: white;
     text-align: center;
-    margin-top: 1rem;
-    max-width: 600px;
+    margin-top: 0.5rem;
+    max-width: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
 .lightbox-caption h3 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.2rem;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .lightbox-caption p {
     margin: 0;
     color: #ccc;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+}
+
+.lightbox-caption p::before {
+    content: "•";
+    margin-right: 0.5rem;
+    color: #888;
 }
 
 .lightbox-close {
@@ -480,6 +493,8 @@ ul {
     padding: 0;
     line-height: 1;
     z-index: 1001;
+    opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
 .lightbox-nav {
@@ -493,8 +508,22 @@ ul {
     cursor: pointer;
     padding: 1rem 0.5rem;
     border-radius: 4px;
-    transition: background 0.2s;
+    transition: opacity 0.3s ease, background 0.2s;
     z-index: 1001;
+    opacity: 1;
+}
+
+/* Hide UI elements when in minimalist mode */
+.lightbox.hide-ui .lightbox-caption,
+.lightbox.hide-ui .lightbox-close,
+.lightbox.hide-ui .lightbox-nav {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Add cursor indicator for toggle */
+.lightbox-content {
+    cursor: pointer;
 }
 
 .lightbox-nav:hover {

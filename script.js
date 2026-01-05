@@ -4,11 +4,14 @@ const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
 const lightboxTitle = document.getElementById('lightbox-title');
 const lightboxDesc = document.getElementById('lightbox-desc');
+let uiVisible = true;
 
 function openLightbox(index) {
   currentIndex = index;
   updateLightboxContent();
   lightbox.classList.add('active');
+  uiVisible = true;
+  lightbox.classList.remove('hide-ui');
   document.body.style.overflow = 'hidden'; // Prevent scrolling
 }
 
@@ -39,10 +42,28 @@ function updateLightboxContent() {
   lightboxDesc.innerText = desc;
 }
 
-// Close lightbox when clicking outside the image
+// Toggle UI visibility or close lightbox when clicking
 lightbox.addEventListener('click', (e) => {
+  // Don't toggle if clicking on buttons
+  if (e.target.classList.contains('lightbox-nav') ||
+    e.target.classList.contains('lightbox-close') ||
+    e.target.closest('.lightbox-nav') ||
+    e.target.closest('.lightbox-close')) {
+    return;
+  }
+
+  // Close if clicking on the background (lightbox itself)
   if (e.target === lightbox) {
     closeLightbox();
+    return;
+  }
+
+  // Toggle UI visibility when clicking on image or caption area
+  uiVisible = !uiVisible;
+  if (uiVisible) {
+    lightbox.classList.remove('hide-ui');
+  } else {
+    lightbox.classList.add('hide-ui');
   }
 });
 
